@@ -1,3 +1,14 @@
+body {
+  background-image: url("./assets/sailing-1.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* background-position: top; */
+  background-position-x: right;
+  background-position-y: top;
+  width: 100vw;
+  height: 100vh;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +46,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  color: #183290;
+}
+
+.navbar-toggler-icon {
+  color: #0869fb;
+  background-color: #0869fb;
+  border: 2px solid #0869fb;
+  padding: 18px;
+  border-radius: 5px;
 }
