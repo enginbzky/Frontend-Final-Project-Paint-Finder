@@ -4,16 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import Home from "./pages/Home";
-// import About from "./pages/About";
-// import Administration from "./pages/Administration";
-// import PaintFinder from "./pages/PaintFinder";
 import Profile from "./pages/Profile";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Administration } from "./pages/Administration";
 import { PaintFinder } from "./pages/PaintFinder";
+import WelcomePage from "./pages/WelcomePage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,15 +28,35 @@ const router = createBrowserRouter([
       },
       {
         path: "administration",
-        element: <Administration />,
+        element: (
+          <ProtectedRoute>
+            <Administration />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "paintFinder",
-        element: <PaintFinder />,
+        element: (
+          <ProtectedRoute>
+            <PaintFinder />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "welcomePage",
+        element: (
+          <ProtectedRoute>
+            <WelcomePage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

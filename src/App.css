@@ -9,6 +9,11 @@ body {
   height: 100vh;
 }
 
+.homeCardCard {
+  border: 0;
+  height: max-content;
+}
+
 .App {
   text-align: center;
 }
@@ -58,4 +63,41 @@ body {
   border: 2px solid #0869fb;
   padding: 18px;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 1400px) {
+  .homeCard {
+    max-width: 700px;
+  }
+  body {
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  body {
+    background: url("./assets/sailing-opacity.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: right;
+    background-position-y: top;
+    width: 100vw;
+    height: 100vh;
+  }
+  .homeCard {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  body {
+    background-image: none;
+  }
+
+  .homeCard {
+    display: flex;
+    justify-content: center;
+  }
 }

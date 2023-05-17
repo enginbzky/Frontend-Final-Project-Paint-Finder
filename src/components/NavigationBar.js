@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import LogoutButton from "../registration/LogoutButton";
@@ -6,20 +6,11 @@ import LoginButton from "../registration/LoginButton";
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../assets/logo-resim.png";
 import logoName from "../assets/logo-isim.png";
-// import {
-//     Collapse,
-//     NavbarToggler,
-//     NavbarBrand,
-//   NavItem,
-//     Button,
-//     UncontrolledDropdown,
-//     DropdownToggle,
-//     DropdownMenu,
-//     DropdownItem,
-// } from "reactstrap";
+import { UserContext } from "../context/UserContext";
 
 function NavigationBar() {
   const { isAuthenticated } = useAuth0();
+  const user = useContext(UserContext);
   return (
     <Navbar variant="dark" expand="lg">
       <Container>
