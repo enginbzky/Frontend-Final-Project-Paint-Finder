@@ -11,61 +11,101 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
       <h1>Add paint</h1>
       <div className="mb-3">
         <label htmlFor="exampleInputEmail1" className="form-label">
-          First Name
+          Brand
         </label>
         <input
           type="text"
           className="form-control"
           id="exampleInputEmail1"
-          name="first_name"
+          name="brand"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.first_name}
+          value={formik.values.brand}
           aria-describedby="emailHelp"
         />
-        {formik.touched.first_name && formik.errors.first_name ? (
+        {formik.touched.brand && formik.errors.brand ? (
           <div className="alert alert-danger" role="alert">
-            {formik.errors.first_name}
+            {formik.errors.brand}
           </div>
         ) : null}
       </div>
       <div className="mb-3">
         <label htmlFor="exampleInputPassword1" className="form-label">
-          Last Name
+          Paint Name
         </label>
         <input
           type="text"
           className="form-control"
           id="exampleInputPassword1"
-          name="last_name"
+          name="paintName"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.last_name}
+          value={formik.values.paintName}
         />
-        {formik.touched.last_name && formik.errors.last_name ? (
+        {formik.touched.paintName && formik.errors.paintName ? (
           <div className="alert alert-danger" role="alert">
-            {formik.errors.last_name}
+            {formik.errors.paintName}
           </div>
         ) : null}
       </div>
 
       <div className="mb-3">
         <label htmlFor="exampleInputPassword1" className="form-label">
-          Email
+          Material
         </label>
         <input
           className="form-control"
           id="exampleInputPassword1"
-          name="email"
-          type="email"
+          name="material"
+          type="text"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.email}
+          value={formik.values.material}
         />
 
-        {formik.touched.email && formik.errors.email ? (
+        {formik.touched.material && formik.errors.material ? (
           <div className="alert alert-danger" role="alert">
-            {formik.errors.email}
+            {formik.errors.material}
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">
+          Description
+        </label>
+        <input
+          className="form-control"
+          id="exampleInputPassword1"
+          name="description"
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.description}
+        />
+
+        {formik.touched.description && formik.errors.description ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.description}
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">
+          Maximum Speed
+        </label>
+        <input
+          className="form-control"
+          id="exampleInputPassword1"
+          name="maxSpeed"
+          type="number"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.maxSpeed}
+        />
+
+        {formik.touched.maxSpeed && formik.errors.maxSpeed ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.maxSpeed}
           </div>
         ) : null}
       </div>

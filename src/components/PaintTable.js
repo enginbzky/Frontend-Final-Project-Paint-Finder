@@ -31,23 +31,26 @@ function PaintTable({ paints, getData, handleEdit }) {
   };
 
   return (
-    <table className="text-light  table  table-hover table-bg table-bordered  table-responsive">
+    <table className="text-dark  table  table-hover table-bg table-bordered  table-responsive">
       <thead>
         <tr>
           <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Action</th>
+          <th>Brand</th>
+          <th>Paint Name</th>
+          <th>Material</th>
+          <th>Description</th>
+          <th>Maximum Speed</th>
         </tr>
       </thead>
       <tbody>
         {paints.map((paint) => (
           <tr key={paint.id}>
             <th scope="row">{paint.id}</th>
-            <td>{paint.first_name}</td>
-            <td>{paint.last_name}</td>
-            <td>{paint.email}</td>
+            <td>{paint.brand}</td>
+            <td>{paint.paintName}</td>
+            <td>{paint.material}</td>
+            <td>{paint.description}</td>
+            <td>{paint.maxSpeed}</td>
             <td>
               <button
                 className="btn btn-danger mx-2"

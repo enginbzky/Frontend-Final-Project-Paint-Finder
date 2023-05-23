@@ -2,9 +2,9 @@ import { api } from "./httpService";
 
 const getUser = async (email) => {
   try {
-    //TODO 
-    const response = await api.get(`/users/profile/${email}`);
-    return response.data  //user object
+    //TODO
+    const response = await api.get(`/profile/${email}`);
+    return response.data; //user object
   } catch (error) {
     console.error(error.message);
     throw error;
@@ -13,7 +13,7 @@ const getUser = async (email) => {
 
 const saveUser = async (user) => {
   try {
-    //TODO 
+    //TODO
     const response = await api.post(`/users`, user);
     return response.data;
   } catch (error) {
@@ -25,7 +25,7 @@ const saveUser = async (user) => {
 const getUsers = async () => {
   try {
     const response = await api.get(`/users`);
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error.message);
     throw error;
@@ -34,7 +34,7 @@ const getUsers = async () => {
 
 const updateUserRoles = async (users) => {
   try {
-    const response = await api.put(`/users`, users);
+    const response = await api.put(`/users/:id`, users);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -46,7 +46,7 @@ const userService = {
   getUser,
   saveUser,
   getUsers,
-  updateUserRoles
+  updateUserRoles,
 };
 
 export default userService;

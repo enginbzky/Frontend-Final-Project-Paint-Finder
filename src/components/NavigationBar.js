@@ -7,6 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import logo from "../assets/logo-resim.png";
 import logoName from "../assets/logo-isim.png";
 import { UserContext } from "../context/UserContext";
+import ProtectedLink from "./ProtectedLink";
 
 function NavigationBar() {
   const { isAuthenticated } = useAuth0();
@@ -45,15 +46,24 @@ function NavigationBar() {
             <Nav.Link as={NavLink} to="/about">
               About
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/administration">
-              Administration
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/paintFinder">
-              Paint Finder
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/profile">
-              Profile
-            </Nav.Link>
+            <Nav>
+              {isAuthenticated ? (
+                <>
+                  <ProtectedLink
+                    name="Administration"
+                    link="/administration"
+                    user={user}
+                    roles={["admin"]}
+                  />
+                  <Nav.Link as={NavLink} to="/paintFinder">
+                    Paint Finder
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/profile">
+                    Profile
+                  </Nav.Link>
+                </>
+              ) : null}
+            </Nav>
           </Nav>
           <Nav>
             <div>

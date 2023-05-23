@@ -12,6 +12,7 @@ import { Administration } from "./pages/Administration";
 import { PaintFinder } from "./pages/PaintFinder";
 import WelcomePage from "./pages/WelcomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -58,20 +59,28 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "settings",
+        element: (
+          <ProtectedRoute>
+            <Settings />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Auth0Provider
-    domain="dev-h3i7y85207cek8za.us.auth0.com"
-    clientId="gkB7T3Dr8AhofwEyXDlnMMzoIYtLfQyW"
-    authorizationParams={{
-      redirect_uri: window.location.origin,
-    }}
-  >
-    <React.StrictMode>
+  <React.StrictMode>
+    <Auth0Provider
+      domain="dev-h3i7y85207cek8za.us.auth0.com"
+      clientId="gkB7T3Dr8AhofwEyXDlnMMzoIYtLfQyW"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
       <RouterProvider router={router} />
-    </React.StrictMode>
-  </Auth0Provider>
+    </Auth0Provider>
+  </React.StrictMode>
 );

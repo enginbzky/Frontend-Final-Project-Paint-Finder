@@ -16,9 +16,9 @@ const useCheckUser = () => {
           role: remoteUser.role,
           id: remoteUser.id,
         });
-        navigate("");
+        navigate("/");
       } else {
-        navigate("/welcome");
+        navigate("/welcomePage");
       }
     }
   };

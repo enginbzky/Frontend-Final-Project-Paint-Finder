@@ -2,12 +2,15 @@
 import { Outlet } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
 import "./App.css";
+import { UserContextProvider } from "./context/UserContext";
 
 function App() {
   return (
     <div className="App">
-      <NavigationBar />
-      <Outlet />
+      <UserContextProvider>
+        <NavigationBar />
+        <Outlet />
+      </UserContextProvider>
     </div>
   );
 }

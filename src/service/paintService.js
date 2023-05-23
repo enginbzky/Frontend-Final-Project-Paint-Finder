@@ -1,12 +1,12 @@
 ///service file is a file where we make http requests to the server.
 //this way of abstraction is arguably better than writing these functions in your components
 
-const BASE_URL = "http://localhost:5000/api/v1/User";
+// const BASE_URL = "http://localhost:9000/";
 
 //getting all paints
 export const getPaints = async () => {
   try {
-    const response = await fetch(BASE_URL);
+    const response = await fetch("http://localhost:9000/paints");
     const json = await response.json();
     if (response.ok) {
       return json; /// <=== return the fetched json data
@@ -28,7 +28,7 @@ export const createPaint = async (paint) => {
     },
   };
 
-  const response = await fetch(BASE_URL, options);
+  const response = await fetch("http://localhost:9000/paints", options);
   const json = await response.json();
   if (response.ok) {
     return json; /// <=== return the fetched json data
@@ -47,7 +47,7 @@ export const updatePaint = async (id, paint) => {
     },
   };
   try {
-    const response = await fetch(`${BASE_URL}/${id}`, options);
+    const response = await fetch("http://localhost:9000/paints/:id", options);
     const json = await response.json();
     if (response.ok) {
       return json; /// <=== return the fetched json data
@@ -62,7 +62,7 @@ export const updatePaint = async (id, paint) => {
 ///delete an existing paint
 export const deletePaint = async (id) => {
   try {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch("http://localhost:9000/paints/:id", {
       method: "DELETE",
     });
     const json = await response.json();
