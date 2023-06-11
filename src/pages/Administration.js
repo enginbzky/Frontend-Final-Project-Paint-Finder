@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 import { createPaint, getPaints, updatePaint } from "../service/paintService";
-
+import Footer from "../components/FooterPage";
 import PaintForm from "../components/PaintForm";
 import PaintTable from "../components/PaintTable";
 import { alertWithMessage } from "../AlertWithMessage";
@@ -44,6 +44,8 @@ export const Administration = () => {
       brand: pPaint.brand,
       paintName: pPaint.paintName,
       material: pPaint.material,
+      season: pPaint.season,
+      budget: pPaint.budget,
       description: pPaint.description,
       maxSpeed: pPaint.maxSpeed,
     });
@@ -53,12 +55,14 @@ export const Administration = () => {
       brand: pValues.brand,
       paintName: pValues.paintName,
       material: pValues.material,
+      season: pValues.season,
+      budget: pValues.budget,
       description: pValues.description,
       maxSpeed: pValues.maxSpeed,
     };
     try {
       await updatePaint(paintId, paint);
-      getData();
+      await getData();
       alertWithMessage("Paint edited successfully");
     } catch (error) {
       setError(error);
@@ -71,6 +75,8 @@ export const Administration = () => {
       brand: pValues.brand,
       paintName: pValues.paintName,
       material: pValues.material,
+      season: pValues.season,
+      budget: pValues.budget,
       description: pValues.description,
       maxSpeed: pValues.maxSpeed,
     };
@@ -88,6 +94,8 @@ export const Administration = () => {
       brand: "",
       paintName: "",
       material: "",
+      season: "",
+      budget: "",
       description: "",
       maxSpeed: "",
     },
@@ -99,13 +107,20 @@ export const Administration = () => {
       paintName: Yup.string()
         .max(25, "Pain name must be 25 characters or less")
         .required("Required"),
+      material: Yup.string()
+        .max(25, "Material must be 25 characters or less")
+        .required("Required"),
+      season: Yup.string()
+        .max(25, "Season must be 25 characters or less")
+        .required("Required"),
+      budget: Yup.string()
+        .max(25, "Budget must be 25 characters or less")
+        .required("Required"),
       description: Yup.string()
         .min(25, "Description must be 25 characters or more")
         .required("Required"),
-      maxSpeed: Yup.number()
-        .typeError("You must enter only number")
-        .positive("You must enter at least 1")
-        .integer("You must enter an integer")
+      maxSpeed: Yup.string()
+        .max(25, "Maximum speed must be 25 characters or more")
         .required("Required"),
     }),
     onSubmit: (values, { resetForm }) => {
@@ -145,6 +160,7 @@ export const Administration = () => {
         </div>
       </div>
       <UserManagement />
+      <Footer />
     </div>
   );
 };

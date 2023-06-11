@@ -12,7 +12,7 @@ export const Home = () => {
   const { user, isAuthenticated } = useAuth0();
   return (
     <>
-      <div className="homeCard d-flex justify-content-start align-items-center ms-5">
+      <div className="Home homeCard d-flex justify-content-start align-items-center ms-5">
         <Card
           style={{ maxWidth: "800px", minWidth: "390px" }}
           className="homeCardCard text-center bg-transparent "

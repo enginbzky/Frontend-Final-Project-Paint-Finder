@@ -40,7 +40,7 @@ function NavigationBar() {
         </Navbar.Brand>
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="navbar me-auto">
-            <Nav.Link className="ps-5" as={NavLink} to="/" exact>
+            <Nav.Link className="ps-5" as={NavLink} to="/" exact={true}>
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/about">

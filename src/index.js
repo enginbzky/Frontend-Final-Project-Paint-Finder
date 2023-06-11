@@ -18,20 +18,31 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+
     children: [
       {
         path: "",
-        element: <Home />,
+        element: (
+          <div className="background-image">
+            <Home />
+          </div>
+        ),
       },
       {
         path: "about",
-        element: <About />,
+        element: (
+          <div className="background-image">
+            <About />
+          </div>
+        ),
       },
       {
         path: "administration",
         element: (
           <ProtectedRoute>
-            <Administration />
+            <div className="no-background-image">
+              <Administration />
+            </div>
           </ProtectedRoute>
         ),
       },
@@ -39,7 +50,9 @@ const router = createBrowserRouter([
         path: "paintFinder",
         element: (
           <ProtectedRoute>
-            <PaintFinder />
+            <div className="no-background-image">
+              <PaintFinder />
+            </div>
           </ProtectedRoute>
         ),
       },
@@ -47,7 +60,9 @@ const router = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute>
-            <Profile />
+            <div className="background-image">
+              <Profile />
+            </div>
           </ProtectedRoute>
         ),
       },
@@ -55,7 +70,9 @@ const router = createBrowserRouter([
         path: "welcomePage",
         element: (
           <ProtectedRoute>
-            <WelcomePage />
+            <div className="background-image">
+              <WelcomePage />
+            </div>
           </ProtectedRoute>
         ),
       },

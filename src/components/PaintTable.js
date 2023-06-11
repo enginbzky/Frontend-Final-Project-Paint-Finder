@@ -3,17 +3,23 @@ import Swal from "sweetalert2";
 import { deletePaint } from "../service/paintService";
 import EditIcon from "../assets/EditIcon";
 import TrashIcon from "../assets/TrashIcon";
+import "../App.css";
 
 function PaintTable({ paints, getData, handleEdit }) {
   const handleDelete = async (pId) => {
     if (await confirmDialog()) {
       try {
-        await deletePaint(pId);
-        getData();
+        const result = await deletePaint(pId);
+        if (result) {
+          await getData();
+          Swal.fire("Deleted!", "The paint has been deleted.", "success");
+        } else {
+          throw new Error("Failed to delete the paint.");
+        }
       } catch (error) {
         console.error(error);
+        Swal.fire("Error!", error.message, "error");
       }
-      await Swal.fire("Deleted!", "the paint has been deleted.", "success");
     }
   };
 
@@ -31,14 +37,16 @@ function PaintTable({ paints, getData, handleEdit }) {
   };
 
   return (
-    <table className="text-dark  table  table-hover table-bg table-bordered  table-responsive">
+    <table className="text-dark  table  table-hover table-bg table-bordered  ">
       <thead>
         <tr>
           <th>#</th>
           <th>Brand</th>
           <th>Paint Name</th>
           <th>Material</th>
-          <th>Description</th>
+          <th>Season</th>
+          <th>Budget</th>
+          <th style={{ width: 200 }}>Description</th>
           <th>Maximum Speed</th>
         </tr>
       </thead>
@@ -49,7 +57,9 @@ function PaintTable({ paints, getData, handleEdit }) {
             <td>{paint.brand}</td>
             <td>{paint.paintName}</td>
             <td>{paint.material}</td>
-            <td>{paint.description}</td>
+            <td>{paint.season}</td>
+            <td>{paint.budget}</td>
+            <td style={{ width: 200 }}>{paint.description}</td>
             <td>{paint.maxSpeed}</td>
             <td>
               <button

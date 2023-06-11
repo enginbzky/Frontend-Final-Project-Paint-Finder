@@ -6,7 +6,7 @@ import { faComments } from "@fortawesome/free-solid-svg-icons";
 export const About = () => {
   return (
     <>
-      <div className="homeCard d-flex justify-content-start align-items-center ms-5 mt-5">
+      <div className="About homeCard d-flex justify-content-start align-items-center ms-5 mt-5">
         <Card
           style={{ maxWidth: "900px", minWidth: "390px" }}
           className="homeCardCard bg-transparent d-flex align-items-start"

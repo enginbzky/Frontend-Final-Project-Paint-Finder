@@ -1,4 +1,4 @@
-body {
+.background-image {
   background-image: url("./assets/sailing-1.png");
   background-repeat: no-repeat;
   background-size: contain;
@@ -76,7 +76,7 @@ body {
 }
 
 @media screen and (max-width: 1200px) {
-  body {
+  .background-image {
     background: url("./assets/sailing-opacity.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -92,7 +92,7 @@ body {
 }
 
 @media screen and (max-width: 800px) {
-  body {
+  .background-image {
     background-image: none;
   }
 
@@ -102,6 +102,29 @@ body {
   }
 }
 
-.Administration {
+.no-background-image {
   background-image: none;
+}
+
+.fixed-description {
+  width: 100px; /* Sabit genişlik */
+  height: auto; /* Otomatik yükseklik */
+  white-space: normal; /* Metnin otomatik olarak satırlara bölünmesine izin verir */
+  word-wrap: break-word; /* Uzun kelimelerin otomatik olarak satıra sığmasını sağlar */
+  font-size: 14px; /* Yazı fontu boyutu */
+}
+
+/* .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #eb6e14;
+  border-color: #eb6e14;
+}
+
+.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 0.2rem rgba(235, 110, 20, 0.25);
+} */
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

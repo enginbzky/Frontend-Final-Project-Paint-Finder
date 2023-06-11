@@ -47,7 +47,7 @@ export const updatePaint = async (id, paint) => {
     },
   };
   try {
-    const response = await fetch("http://localhost:9000/paints/:id", options);
+    const response = await fetch(`http://localhost:9000/paints/${id}`, options);
     const json = await response.json();
     if (response.ok) {
       return json; /// <=== return the fetched json data
@@ -62,7 +62,7 @@ export const updatePaint = async (id, paint) => {
 ///delete an existing paint
 export const deletePaint = async (id) => {
   try {
-    const response = await fetch("http://localhost:9000/paints/:id", {
+    const response = await fetch(`http://localhost:9000/paints/${id}`, {
       method: "DELETE",
     });
     const json = await response.json();

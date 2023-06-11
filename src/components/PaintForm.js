@@ -7,9 +7,10 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
         e.preventDefault();
         formik.handleSubmit();
       }}
+      style={{ width: 400 }}
     >
       <h1>Add paint</h1>
-      <div className="mb-3">
+      <div className="mb-3" style={{ width: 400 }}>
         <label htmlFor="exampleInputEmail1" className="form-label">
           Brand
         </label>
@@ -71,6 +72,46 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
       </div>
       <div className="mb-3">
         <label htmlFor="exampleInputPassword1" className="form-label">
+          Season
+        </label>
+        <input
+          className="form-control"
+          id="exampleInputPassword1"
+          name="season"
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.season}
+        />
+
+        {formik.touched.season && formik.errors.season ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.season}
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">
+          Budget
+        </label>
+        <input
+          className="form-control"
+          id="exampleInputPassword1"
+          name="budget"
+          type="text"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.budget}
+        />
+
+        {formik.touched.budget && formik.errors.budget ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.budget}
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">
           Description
         </label>
         <input
@@ -97,7 +138,7 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
           className="form-control"
           id="exampleInputPassword1"
           name="maxSpeed"
-          type="number"
+          type="text"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.maxSpeed}
