@@ -3,8 +3,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { RenderSteps } from "../components/RenderSteps";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const PaintFinder = () => {
+  const { user } = useAuth0();
   const [step, setStep] = useState(1);
   const [boatName, setBoatName] = useState("");
   const [boatLength, setBoatLength] = useState(0);
@@ -39,7 +41,7 @@ export const PaintFinder = () => {
     try {
       const queryParams = new URLSearchParams(selectedOptions);
       const response = await fetch(
-        `http://localhost:9000/paints?${queryParams.toString()}`
+        `http://localhost:9000/selectedPaints?${queryParams.toString()}`
       );
       console.log("Selected Options:", selectedOptions);
       if (!response.ok) {
@@ -47,10 +49,63 @@ export const PaintFinder = () => {
       }
       const data = await response.json();
       console.log("Received paint data:", data);
-      setPaintData(data);
+      if (Array.isArray(data)) {
+        setPaintData(data);
+      } else {
+        setPaintData([data]);
+      }
     } catch (error) {
       console.error("Error retrieving paint data:", error);
     }
+  };
+
+  const savePaintData = async () => {
+    const updatedSelectedOptions = {
+      selectedType: selectedType,
+      selectedMaterial: selectedMaterial,
+      season: season,
+      selectedSpeed: selectedSpeed,
+      budget: budget,
+    };
+    try {
+      const response = await fetch("http://localhost:9000/savePaintData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          boatName: boatName,
+          boatLength: boatLength,
+          boatDraft: boatDraft,
+          ...updatedSelectedOptions,
+          userId: user.id,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Paint data saving failed");
+      }
+
+      // Clear the form fields
+      setBoatName("");
+      setBoatLength(0);
+      setBoatDraft(0);
+      setSelectedType("");
+      setSelectedMaterial("");
+      setSeason("");
+      setSelectedSpeed("");
+      setBudget("");
+      setSelectedOptions(updatedSelectedOptions);
+
+      // Fetch paint data after saving
+      getPaintData(updatedSelectedOptions);
+    } catch (error) {
+      console.error("Error saving paint data:", error);
+    }
+  };
+
+  const handleSaveData = () => {
+    savePaintData();
   };
 
   const handleComplete = () => {
@@ -69,12 +124,20 @@ export const PaintFinder = () => {
 
   // Render paint data
   const renderPaintData = () => {
-    return paintData.map((paint, index) => (
-      <div key={index}>
-        <h3>Yacht Name : {paint.brand} </h3>
-        <p>Paint Name: {paint.paintName}</p>
-      </div>
-    ));
+    if (!paintData || paintData.length === 0) {
+      return <p>No paint data available.</p>;
+    }
+    return paintData.map((paint, index) => {
+      if (!paint || typeof paint.brand === "undefined") {
+        return null; // veya hata durumuna uygun bir işlem yapabilirsiniz
+      }
+      return (
+        <div key={index}>
+          <h3>Yacht Name : {paint.brand} </h3>
+          <p>Paint Name: {paint.paintName}</p>
+        </div>
+      );
+    });
   };
 
   const userChoices = () => {
@@ -177,6 +240,7 @@ export const PaintFinder = () => {
         budget={budget}
         renderPaintData={renderPaintData}
         userChoices={userChoices}
+        handleSaveData={handleSaveData}
       />
     </div>
   );

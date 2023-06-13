@@ -12,6 +12,7 @@ export const RenderSteps = ({
   handleComplete,
   handleMaterialChange,
   handleSeason,
+  handleSaveData,
   step,
   boatName,
   selectedType,
@@ -482,7 +483,15 @@ export const RenderSteps = ({
                 Previous
               </Button>
             </Col>
-            <Col xs="auto"></Col>
+            <Col xs="auto">
+              <Button
+                variant="primary"
+                style={{ backgroundColor: "#0869FB", color: "white" }}
+                onClick={handleSaveData}
+              >
+                Save
+              </Button>
+            </Col>
           </Row>
         </div>
       );
