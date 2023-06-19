@@ -1,7 +1,11 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
-import { createPaint, getPaints, updatePaint } from "../service/paintService";
+import {
+  createPaint,
+  getPaints,
+  updatePaint,
+} from "../service/paintService.js";
 import Footer from "../components/FooterPage";
 import PaintForm from "../components/PaintForm";
 import PaintTable from "../components/PaintTable";
@@ -42,23 +46,27 @@ export const Administration = () => {
     setPaintId(pPaint.id);
     formik.setValues({
       brand: pPaint.brand,
+      type: pPaint.type,
       paintName: pPaint.paintName,
       material: pPaint.material,
       season: pPaint.season,
       budget: pPaint.budget,
       description: pPaint.description,
       maxSpeed: pPaint.maxSpeed,
+      image: pPaint.image,
     });
   };
   const handlePaintUpdate = async (pValues) => {
     const paint = {
       brand: pValues.brand,
+      type: pValues.type,
       paintName: pValues.paintName,
       material: pValues.material,
       season: pValues.season,
       budget: pValues.budget,
       description: pValues.description,
       maxSpeed: pValues.maxSpeed,
+      image: pValues.image,
     };
     try {
       await updatePaint(paintId, paint);
@@ -70,16 +78,22 @@ export const Administration = () => {
     setIsEditing(false);
   };
 
-  const handleSubmit = async (pValues) => {
+  const handleSubmit = async () => {
     const newPaint = {
-      brand: pValues.brand,
-      paintName: pValues.paintName,
-      material: pValues.material,
-      season: pValues.season,
-      budget: pValues.budget,
-      description: pValues.description,
-      maxSpeed: pValues.maxSpeed,
+      brand: formik.values.brand,
+      type: formik.values.type,
+      paintName: formik.values.paintName,
+      material: formik.values.material,
+      season: formik.values.season,
+      budget: formik.values.budget,
+      description: formik.values.description,
+      maxSpeed: formik.values.maxSpeed,
+      image: formik.values.image,
     };
+    if (!newPaint.image) {
+      alert("Please select an image.");
+      return;
+    }
     try {
       await createPaint(newPaint);
       alertWithMessage("Paint added successfully.");
@@ -92,17 +106,22 @@ export const Administration = () => {
   const formik = useFormik({
     initialValues: {
       brand: "",
+      type: "",
       paintName: "",
       material: "",
       season: "",
       budget: "",
       description: "",
       maxSpeed: "",
+      image: null,
     },
     validateOnMount: true,
     validationSchema: Yup.object({
       brand: Yup.string()
         .max(15, "Brand name must be 15 characters or less")
+        .required("Required"),
+      type: Yup.string()
+        .max(15, "Brand type must be 15 characters or less")
         .required("Required"),
       paintName: Yup.string()
         .max(25, "Pain name must be 25 characters or less")
@@ -122,6 +141,7 @@ export const Administration = () => {
       maxSpeed: Yup.string()
         .max(25, "Maximum speed must be 25 characters or more")
         .required("Required"),
+      image: Yup.mixed().required("Image is required"),
     }),
     onSubmit: (values, { resetForm }) => {
       if (!isEditing) {

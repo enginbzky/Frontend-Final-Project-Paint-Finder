@@ -3,10 +3,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import { RenderSteps } from "../components/RenderSteps";
+import { api } from "../service/httpService";
+import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const PaintFinder = () => {
   const { user } = useAuth0();
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isLengthFormValid, setIsLengthFormValid] = useState(false);
+  const [isDraftFormValid, setIsDraftFormValid] = useState(false);
   const [step, setStep] = useState(1);
   const [boatName, setBoatName] = useState("");
   const [boatLength, setBoatLength] = useState(0);
@@ -68,24 +73,12 @@ export const PaintFinder = () => {
       budget: budget,
     };
     try {
-      const response = await fetch("http://localhost:9000/savePaintData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          boatName: boatName,
-          boatLength: boatLength,
-          boatDraft: boatDraft,
-          ...updatedSelectedOptions,
-          userId: user.id,
-        }),
+      const response = await api.post(`/savePaintData?email=${user?.email}`, {
+        boatName: boatName,
+        boatLength: boatLength,
+        boatDraft: boatDraft,
+        ...updatedSelectedOptions,
       });
-
-      if (!response.ok) {
-        throw new Error("Paint data saving failed");
-      }
-
       // Clear the form fields
       setBoatName("");
       setBoatLength(0);
@@ -98,14 +91,26 @@ export const PaintFinder = () => {
       setSelectedOptions(updatedSelectedOptions);
 
       // Fetch paint data after saving
-      getPaintData(updatedSelectedOptions);
+      // getPaintData(updatedSelectedOptions);
     } catch (error) {
       console.error("Error saving paint data:", error);
     }
   };
 
   const handleSaveData = () => {
-    savePaintData();
+    Swal.fire({
+      title: "Confirmation",
+      text: "Are you sure you want to save this data? You cannot modify these data once saved.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, save it!",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        savePaintData(); // Kaydetme işlemi burada gerçekleştirilebilir
+        Swal.fire("Saved!", "Data has been saved.", "success");
+      }
+    });
   };
 
   const handleComplete = () => {
@@ -117,9 +122,10 @@ export const PaintFinder = () => {
       selectedSpeed: selectedSpeed,
       budget: budget,
     };
-    setSelectedOptions(updatedSelectedOptions);
+
     getPaintData(updatedSelectedOptions);
     handleNext();
+    setSelectedOptions(updatedSelectedOptions);
   };
 
   // Render paint data
@@ -174,7 +180,30 @@ export const PaintFinder = () => {
   };
 
   const handleNext = () => {
-    setStep(step + 1);
+    if (isFormValid) {
+      setStep(step + 1);
+    } else {
+      // Form.Control alanına veri girilmediğinde yapılacak işlemler
+      // Örneğin, kullanıcıyı uyarabilir veya bir hata mesajı gösterebilirsiniz
+      Swal.fire(
+        "Error",
+        "Please enter name of your yacht in the form field.",
+        "error"
+      );
+    }
+  };
+
+  const handleNextDimension = () => {
+    if (isLengthFormValid && isDraftFormValid) {
+      setStep(step + 1);
+    } else {
+      // Form.Control alanlarına geçerli değerler girilmediğinde yapılacak işlemler
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please enter positive numbers.",
+      });
+    }
   };
 
   const handlePrev = () => {
@@ -182,15 +211,33 @@ export const PaintFinder = () => {
   };
 
   const handleBoatNameChange = (e) => {
-    setBoatName(e.target.value);
+    const inputValue = e.target.value;
+    // İstenilen koşulu kontrol et
+    const isValid = inputValue !== ""; // Form.Control alanına değer girilip girilmediğini kontrol et
+
+    // Durumu güncelle
+    setIsFormValid(isValid);
+    setBoatName(inputValue);
   };
 
   const handleBoatLengthChange = (e) => {
-    setBoatLength(e.target.value);
+    const inputValue = e.target.value;
+    // İstenilen koşulu kontrol et
+    const isValid = inputValue > 0; // 0'dan büyük pozitif değer kontrolü
+
+    // Durumu güncelle
+    setIsLengthFormValid(isValid);
+    setBoatLength(inputValue);
   };
 
   const handleBoatDraftChange = (e) => {
-    setBoatDraft(e.target.value);
+    const inputValue = e.target.value;
+    // İstenilen koşulu kontrol et
+    const isValid = inputValue > 0; // 0'dan büyük pozitif değer kontrolü
+
+    // Durumu güncelle
+    setIsDraftFormValid(isValid);
+    setBoatDraft(inputValue);
   };
 
   const handleTypeChange = (e) => {
@@ -219,6 +266,7 @@ export const PaintFinder = () => {
     >
       <RenderSteps
         handleNext={handleNext}
+        handleNextDimension={handleNextDimension}
         handlePrev={handlePrev}
         handleBoatNameChange={handleBoatNameChange}
         handleBoatDraftChange={handleBoatDraftChange}

@@ -20,7 +20,7 @@ export default function WelcomePage() {
     try {
       const { privacyPolicyAccepted, ...welcomeForm } = values;
       await userService.saveUser(welcomeForm);
-      navigate("/adiminstration");
+      navigate("/about");
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +35,7 @@ export default function WelcomePage() {
   });
 
   return (
-    <Container>
+    <Container style={{ paddingRight: "200px" }}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -87,7 +87,14 @@ export default function WelcomePage() {
                 className="text-danger fw-bold display-6"
               />
             </div>
-            <div className="form-group form-check">
+            <div
+              className="form-group form-check"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
               <Field
                 type="checkbox"
                 name="privacyPolicyAccepted"
@@ -96,7 +103,8 @@ export default function WelcomePage() {
               />
               <label
                 htmlFor="privacyPolicyAccepted"
-                className="form-check-label text-white"
+                className="form-check-label text-primary"
+                style={{ marginLeft: "0.5rem" }}
               >
                 I accept the Privacy Policy
               </label>
@@ -104,6 +112,7 @@ export default function WelcomePage() {
                 component="div"
                 name="privacyPolicyAccepted"
                 className="text-danger"
+                style={{ marginLeft: "0.5rem" }}
               />
             </div>
 

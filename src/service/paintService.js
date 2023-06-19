@@ -20,20 +20,41 @@ export const getPaints = async () => {
 
 ///create a new paint
 export const createPaint = async (paint) => {
-  const options = {
-    method: "POST",
-    body: JSON.stringify(paint),
-    headers: {
-      "Content-Type": "application/json",
-    },
+  const formData = new FormData();
+  formData.append("paintImage", paint.image);
+
+  const jsonData = {
+    paintName: paint.paintName,
+    type: paint.type,
+    brand: paint.brand,
+    material: paint.material,
+    season: paint.season,
+    budget: paint.budget,
+    description: paint.description,
+    maxSpeed: paint.maxSpeed,
   };
 
-  const response = await fetch("http://localhost:9000/paints", options);
-  const json = await response.json();
-  if (response.ok) {
-    return json; /// <=== return the fetched json data
-  } else {
-    throw new Error(response.statusText);
+  formData.append("paint", JSON.stringify(jsonData));
+
+  console.log(formData.get("Image")); // Veriyi doğru bir şekilde eklediğini doğrula
+  console.log(formData.get("paint"));
+
+  const options = {
+    method: "POST",
+    body: formData,
+  };
+
+  try {
+    const response = await fetch("http://localhost:9000/paints", options);
+    const json = await response.json();
+
+    if (response.ok) {
+      return json; // Gönderilen JSON verisinin yanıtı
+    } else {
+      throw new Error(response.statusText);
+    }
+  } catch (error) {
+    throw new Error(error);
   }
 };
 

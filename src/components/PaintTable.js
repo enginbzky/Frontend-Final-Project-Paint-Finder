@@ -1,6 +1,6 @@
 import React from "react";
 import Swal from "sweetalert2";
-import { deletePaint } from "../service/paintService";
+import { deletePaint } from "../service/paintService.js";
 import EditIcon from "../assets/EditIcon";
 import TrashIcon from "../assets/TrashIcon";
 import "../App.css";
@@ -48,6 +48,7 @@ function PaintTable({ paints, getData, handleEdit }) {
           <th>Budget</th>
           <th style={{ width: 200 }}>Description</th>
           <th>Maximum Speed</th>
+          <th>Paint Image</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +62,9 @@ function PaintTable({ paints, getData, handleEdit }) {
             <td>{paint.budget}</td>
             <td style={{ width: 200 }}>{paint.description}</td>
             <td>{paint.maxSpeed}</td>
+            <td>
+              <img src={paint.image} />
+            </td>
             <td>
               <button
                 className="btn btn-danger mx-2"

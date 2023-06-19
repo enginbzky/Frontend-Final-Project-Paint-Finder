@@ -1,6 +1,12 @@
 import React from "react";
 
 function PaintForm({ isEditing, formik, setIsEditing }) {
+  const handleImageChange = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      formik.setFieldValue("image", file);
+    }
+  };
   return (
     <form
       onSubmit={(e) => {
@@ -27,6 +33,26 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
         {formik.touched.brand && formik.errors.brand ? (
           <div className="alert alert-danger" role="alert">
             {formik.errors.brand}
+          </div>
+        ) : null}
+      </div>
+      <div className="mb-3">
+        <label htmlFor="exampleInputEmail1" className="form-label">
+          Type
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleInputEmail1"
+          name="type"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.type}
+          aria-describedby="emailHelp"
+        />
+        {formik.touched.type && formik.errors.type ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.type}
           </div>
         ) : null}
       </div>
@@ -147,6 +173,24 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
         {formik.touched.maxSpeed && formik.errors.maxSpeed ? (
           <div className="alert alert-danger" role="alert">
             {formik.errors.maxSpeed}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="mb-3">
+        <label htmlFor="exampleInputPassword1" className="form-label">
+          File
+        </label>
+        <input
+          className="form-control"
+          id="exampleInputPassword1"
+          name="image"
+          type="file"
+          onChange={handleImageChange}
+        />
+        {formik.touched.image && formik.errors.image ? (
+          <div className="alert alert-danger" role="alert">
+            {formik.errors.image}
           </div>
         ) : null}
       </div>

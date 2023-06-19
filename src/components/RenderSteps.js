@@ -2,6 +2,7 @@ import { Button, Row, Col, Form } from "react-bootstrap";
 
 export const RenderSteps = ({
   handleNext,
+  handleNextDimension,
   handlePrev,
   handleBoatNameChange,
   handleBoatDraftChange,
@@ -59,7 +60,7 @@ export const RenderSteps = ({
     case 2:
       return (
         <div>
-          <Form.Group>
+          <Form.Group controlId="selectedType">
             <Form.Label>
               <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
                 What is the type of the Yacht?
@@ -112,6 +113,7 @@ export const RenderSteps = ({
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
                 onClick={handleNext}
+                disabled={!selectedType}
               >
                 Next
               </Button>
@@ -122,7 +124,7 @@ export const RenderSteps = ({
     case 3:
       return (
         <div>
-          <Form.Group>
+          <Form.Group controlId="selectedMaterial">
             <Form.Label>
               <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
                 What is the material of the Yacht?
@@ -203,6 +205,7 @@ export const RenderSteps = ({
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
                 onClick={handleNext}
+                disabled={!selectedMaterial}
               >
                 Next
               </Button>
@@ -213,7 +216,7 @@ export const RenderSteps = ({
     case 4:
       return (
         <div>
-          <Form.Group>
+          <Form.Group controlId="selectedSpeed">
             <Form.Label>
               <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
                 What is the max. speed of the Yacht?
@@ -266,6 +269,7 @@ export const RenderSteps = ({
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
                 onClick={handleNext}
+                disabled={!selectedSpeed}
               >
                 Next
               </Button>
@@ -285,7 +289,9 @@ export const RenderSteps = ({
             <Row>
               <Col>
                 <Form.Check.Label htmlFor="under25">
-                  <h3 style={{ color: "#0869fb" }}>Water line length</h3>
+                  <h3 style={{ color: "#0869fb" }}>
+                    Water line length {"("} meter {")"}
+                  </h3>
                 </Form.Check.Label>
                 <Form.Control
                   style={{ width: "300px", margin: "auto" }}
@@ -296,7 +302,9 @@ export const RenderSteps = ({
               </Col>
               <Col>
                 <Form.Check.Label htmlFor="under25">
-                  <h3 style={{ color: "#0869fb" }}>Draft</h3>
+                  <h3 style={{ color: "#0869fb" }}>
+                    Draft {"("} meter {")"}
+                  </h3>
                 </Form.Check.Label>
                 <Form.Control
                   style={{ width: "300px", margin: "auto" }}
@@ -322,7 +330,7 @@ export const RenderSteps = ({
               <Button
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
-                onClick={handleNext}
+                onClick={handleNextDimension}
               >
                 Next
               </Button>
@@ -333,7 +341,7 @@ export const RenderSteps = ({
     case 6:
       return (
         <div>
-          <Form.Group>
+          <Form.Group controlId="season">
             <Form.Label>
               <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
                 Do you want a one-season or multi-season paint?
@@ -386,6 +394,7 @@ export const RenderSteps = ({
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
                 onClick={handleNext}
+                disabled={!season}
               >
                 Next
               </Button>
@@ -396,7 +405,7 @@ export const RenderSteps = ({
     case 7:
       return (
         <div>
-          <Form.Group>
+          <Form.Group controlId="budget">
             <Form.Label>
               <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
                 What is the budget for the Yacht?
@@ -449,6 +458,7 @@ export const RenderSteps = ({
                 variant="primary"
                 style={{ backgroundColor: "#EB6E14", color: "white" }}
                 onClick={handleComplete}
+                disabled={!budget}
               >
                 Complete
               </Button>
