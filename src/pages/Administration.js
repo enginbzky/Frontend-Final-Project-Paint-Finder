@@ -168,6 +168,7 @@ export const Administration = () => {
               isEditing={isEditing}
               formik={formik}
               setIsEditing={setIsEditing}
+              paints={paints}
             />
           </div>
           <div className="col-lg-7  col-12">

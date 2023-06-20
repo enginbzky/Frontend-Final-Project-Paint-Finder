@@ -72,28 +72,35 @@ export const PaintFinder = () => {
       selectedSpeed: selectedSpeed,
       budget: budget,
     };
-    try {
-      const response = await api.post(`/savePaintData?email=${user?.email}`, {
-        boatName: boatName,
-        boatLength: boatLength,
-        boatDraft: boatDraft,
-        ...updatedSelectedOptions,
-      });
-      // Clear the form fields
-      setBoatName("");
-      setBoatLength(0);
-      setBoatDraft(0);
-      setSelectedType("");
-      setSelectedMaterial("");
-      setSeason("");
-      setSelectedSpeed("");
-      setBudget("");
-      setSelectedOptions(updatedSelectedOptions);
+    const selectedPaint = paintData[0]; // İlk boya verisini al, isteğe bağlı olarak farklı bir kriterle seçim yapabilirsin
+    if (selectedPaint) {
+      try {
+        const response = await api.post(`/savePaintData?email=${user?.email}`, {
+          boatName: boatName,
+          boatLength: boatLength,
+          boatDraft: boatDraft,
+          brand: selectedPaint.brand,
+          paintName: selectedPaint.paintName,
+          ...updatedSelectedOptions,
+        });
+        // Clear the form fields
+        setBoatName("");
+        setBoatLength(0);
+        setBoatDraft(0);
+        setSelectedType("");
+        setSelectedMaterial("");
+        setSeason("");
+        setSelectedSpeed("");
+        setBudget("");
+        setSelectedOptions(updatedSelectedOptions);
 
-      // Fetch paint data after saving
-      // getPaintData(updatedSelectedOptions);
-    } catch (error) {
-      console.error("Error saving paint data:", error);
+        // Fetch paint data after saving
+        // getPaintData(updatedSelectedOptions);
+      } catch (error) {
+        console.error("Error saving paint data:", error);
+      }
+    } else {
+      Swal.fire("Error", "No paint data available.", "error");
     }
   };
 
@@ -107,8 +114,13 @@ export const PaintFinder = () => {
       cancelButtonText: "Cancel",
     }).then((result) => {
       if (result.isConfirmed) {
-        savePaintData(); // Kaydetme işlemi burada gerçekleştirilebilir
-        Swal.fire("Saved!", "Data has been saved.", "success");
+        const selectedPaint = paintData[0]; // İlk boya verisini al, isteğe bağlı olarak farklı bir kriterle seçim yapabilirsin
+        if (selectedPaint) {
+          savePaintData();
+          Swal.fire("Saved!", "Data has been saved.", "success");
+        } else {
+          Swal.fire("Error", "No paint data available.", "error");
+        }
       }
     });
   };

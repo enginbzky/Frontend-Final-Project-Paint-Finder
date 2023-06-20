@@ -20,7 +20,7 @@ export default function WelcomePage() {
     try {
       const { privacyPolicyAccepted, ...welcomeForm } = values;
       await userService.saveUser(welcomeForm);
-      navigate("/about");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

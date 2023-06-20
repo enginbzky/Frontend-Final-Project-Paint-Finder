@@ -1,6 +1,7 @@
 import React from "react";
+import Swal from "sweetalert2";
 
-function PaintForm({ isEditing, formik, setIsEditing }) {
+function PaintForm({ isEditing, formik, setIsEditing, paints }) {
   const handleImageChange = (event) => {
     const file = event.currentTarget.files[0];
     if (file) {
@@ -11,7 +12,18 @@ function PaintForm({ isEditing, formik, setIsEditing }) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        formik.handleSubmit();
+
+        const { paintName } = formik.values;
+
+        const isPaintNameExists = paints.some(
+          (paint) => paint.paintName === paintName
+        );
+
+        if (isPaintNameExists) {
+          Swal.fire("Warning!", "Paint name already exists!", "warning");
+        } else {
+          formik.handleSubmit();
+        }
       }}
       style={{ width: 400 }}
     >

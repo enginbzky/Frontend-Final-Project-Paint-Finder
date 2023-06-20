@@ -96,3 +96,19 @@ export const deletePaint = async (id) => {
     throw error;
   }
 };
+
+// export const checkIfPaintExists = async (paintName) => {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:9000/paints/checkPaintExists/${paintName}`
+//     );
+//     if (!response.ok) {
+//       throw new Error("Paint existence check failed");
+//     }
+//     const data = await response.json();
+//     return data.exists; // Backend'den gelen yanıtı döndürür (true veya false)
+//   } catch (error) {
+//     console.error(error);
+//     throw error;
+//   }
+// };
