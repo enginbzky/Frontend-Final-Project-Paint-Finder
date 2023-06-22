@@ -46,7 +46,7 @@ function PaintTable({ paints, getData, handleEdit }) {
           <th>Material</th>
           <th>Season</th>
           <th>Budget</th>
-          <th style={{ width: 200 }}>Description</th>
+          <th style={{ width: 300 }}>Description</th>
           <th>Maximum Speed</th>
           <th>Paint Image</th>
         </tr>
@@ -60,10 +60,10 @@ function PaintTable({ paints, getData, handleEdit }) {
             <td>{paint.material}</td>
             <td>{paint.season}</td>
             <td>{paint.budget}</td>
-            <td style={{ width: 200 }}>{paint.description}</td>
+            <td style={{ width: 300 }}>{paint.description}</td>
             <td>{paint.maxSpeed}</td>
             <td>
-              <img src={paint.image} />
+              <img src={`http://localhost:9000/paints/${paint.id}/image`} />
             </td>
             <td>
               <button

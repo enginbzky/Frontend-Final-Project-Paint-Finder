@@ -74,8 +74,8 @@ export const RenderSteps = ({
                 <Form.Check
                   type="radio"
                   name="types"
-                  value="MotorYacht"
-                  checked={selectedType === "MotorYacht"}
+                  value="Motor Yacht"
+                  checked={selectedType === "Motor Yacht"}
                   onChange={handleTypeChange}
                   className="custom-radio"
                   id="type1"

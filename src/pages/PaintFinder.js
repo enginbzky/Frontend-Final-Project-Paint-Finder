@@ -153,6 +153,8 @@ export const PaintFinder = () => {
         <div key={index}>
           <h3>Yacht Name : {paint.brand} </h3>
           <p>Paint Name: {paint.paintName}</p>
+          <p>Paint Image:</p>
+          <img src={`http://localhost:9000/paints/${paint.id}/image`} />
         </div>
       );
     });
