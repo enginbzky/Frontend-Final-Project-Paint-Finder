@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../registration/LogoutButton";
 import LoginButton from "../registration/LoginButton";
 import { Table } from "react-bootstrap";
+import Footer from "../components/FooterPage";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -46,7 +47,17 @@ const Profile = () => {
       <h2>{user.name}</h2>
       <p>{user.email}</p>
       <LogoutButton />
-      <Table striped bordered hover>
+      <Table
+        striped
+        bordered
+        hover
+        style={{
+          width: "90%",
+          marginLeft: "70px",
+          marginTop: "30px",
+          marginBottom: "150px",
+        }}
+      >
         <thead>
           <tr>
             <th>Boat Name</th>
@@ -78,6 +89,7 @@ const Profile = () => {
           ))}
         </tbody>
       </Table>
+      <Footer />;
     </div>
   ) : (
     <LoginButton />

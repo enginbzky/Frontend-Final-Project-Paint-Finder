@@ -1,13 +1,15 @@
 import Footer from "../components/FooterPage";
 import React from "react";
 import { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Container } from "react-bootstrap";
 import { RenderSteps } from "../components/RenderSteps";
-import { api } from "../service/httpService";
 import Swal from "sweetalert2";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
+import { getYachtPaint, saveYachtData } from "../service/yachtService";
 
 export const PaintFinder = () => {
+  let navigate = useNavigate();
   const { user } = useAuth0();
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLengthFormValid, setIsLengthFormValid] = useState(false);
@@ -44,21 +46,8 @@ export const PaintFinder = () => {
 
   const getPaintData = async () => {
     try {
-      const queryParams = new URLSearchParams(selectedOptions);
-      const response = await fetch(
-        `http://localhost:9000/selectedPaints?${queryParams.toString()}`
-      );
-      console.log("Selected Options:", selectedOptions);
-      if (!response.ok) {
-        throw new Error("Paint data retrieval failed");
-      }
-      const data = await response.json();
-      console.log("Received paint data:", data);
-      if (Array.isArray(data)) {
-        setPaintData(data);
-      } else {
-        setPaintData([data]);
-      }
+      const paintData = await getYachtPaint(selectedOptions);
+      setPaintData(paintData);
     } catch (error) {
       console.error("Error retrieving paint data:", error);
     }
@@ -75,14 +64,14 @@ export const PaintFinder = () => {
     const selectedPaint = paintData[0]; // İlk boya verisini al, isteğe bağlı olarak farklı bir kriterle seçim yapabilirsin
     if (selectedPaint) {
       try {
-        const response = await api.post(`/savePaintData?email=${user?.email}`, {
-          boatName: boatName,
-          boatLength: boatLength,
-          boatDraft: boatDraft,
-          brand: selectedPaint.brand,
-          paintName: selectedPaint.paintName,
-          ...updatedSelectedOptions,
-        });
+        await saveYachtData(
+          user,
+          boatName,
+          boatLength,
+          boatDraft,
+          selectedPaint,
+          updatedSelectedOptions
+        );
         // Clear the form fields
         setBoatName("");
         setBoatLength(0);
@@ -94,7 +83,8 @@ export const PaintFinder = () => {
         setBudget("");
         setSelectedOptions(updatedSelectedOptions);
 
-        // Fetch paint data after saving
+        navigate("/profile");
+        // Paint data retrieval after saving (if needed)
         // getPaintData(updatedSelectedOptions);
       } catch (error) {
         console.error("Error saving paint data:", error);
@@ -274,36 +264,36 @@ export const PaintFinder = () => {
   };
 
   return (
-    <div
-      className="App"
-      style={{ paddingTop: "20px", textAlign: "center", margin: "100px" }}
-    >
-      <RenderSteps
-        handleNext={handleNext}
-        handleNextDimension={handleNextDimension}
-        handlePrev={handlePrev}
-        handleBoatNameChange={handleBoatNameChange}
-        handleBoatDraftChange={handleBoatDraftChange}
-        handleBoatLengthChange={handleBoatLengthChange}
-        handleTypeChange={handleTypeChange}
-        handleSpeedChange={handleSpeedChange}
-        handleBudget={handleBudget}
-        handleComplete={handleComplete}
-        handleMaterialChange={handleMaterialChange}
-        handleSeason={handleSeason}
-        step={step}
-        boatName={boatName}
-        selectedType={selectedType}
-        selectedMaterial={selectedMaterial}
-        selectedSpeed={selectedSpeed}
-        boatLength={boatLength}
-        boatDraft={boatDraft}
-        season={season}
-        budget={budget}
-        renderPaintData={renderPaintData}
-        userChoices={userChoices}
-        handleSaveData={handleSaveData}
-      />
+    <div style={{ paddingTop: "20px", textAlign: "center", margin: "20px" }}>
+      <Container>
+        <RenderSteps
+          handleNext={handleNext}
+          handleNextDimension={handleNextDimension}
+          handlePrev={handlePrev}
+          handleBoatNameChange={handleBoatNameChange}
+          handleBoatDraftChange={handleBoatDraftChange}
+          handleBoatLengthChange={handleBoatLengthChange}
+          handleTypeChange={handleTypeChange}
+          handleSpeedChange={handleSpeedChange}
+          handleBudget={handleBudget}
+          handleComplete={handleComplete}
+          handleMaterialChange={handleMaterialChange}
+          handleSeason={handleSeason}
+          step={step}
+          boatName={boatName}
+          selectedType={selectedType}
+          selectedMaterial={selectedMaterial}
+          selectedSpeed={selectedSpeed}
+          boatLength={boatLength}
+          boatDraft={boatDraft}
+          season={season}
+          budget={budget}
+          renderPaintData={renderPaintData}
+          userChoices={userChoices}
+          handleSaveData={handleSaveData}
+        />
+      </Container>
+      <Footer />
     </div>
   );
 };

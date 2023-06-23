@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import userService from "../service/userService";
 
-export default function UserManagement() {
+export default function UserAuthorization() {
   const [users, setUsers] = useState([]);
   const roles = ["admin", "user"];
 

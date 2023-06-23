@@ -26,6 +26,7 @@ function PaintForm({ isEditing, formik, setIsEditing, paints }) {
         }
       }}
       style={{ width: 400 }}
+      className="mt-5"
     >
       <h1>Add paint</h1>
       <div className="mb-3" style={{ width: 400 }}>

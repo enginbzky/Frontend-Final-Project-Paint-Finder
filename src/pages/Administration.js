@@ -10,7 +10,6 @@ import Footer from "../components/FooterPage";
 import PaintForm from "../components/PaintForm";
 import PaintTable from "../components/PaintTable";
 import { alertWithMessage } from "../AlertWithMessage";
-import UserManagement from "../components/UserManagement";
 import "../App.css";
 
 export const Administration = () => {
@@ -160,7 +159,7 @@ export const Administration = () => {
     return <p style={{ color: "white" }}>An error occurred: {error.message}</p>;
 
   return (
-    <div className="Administration App m-5 p-5">
+    <div className="Administration App ">
       <div className="container">
         <div className="row">
           <div className="col-lg-5 col-12 text-start ">
@@ -169,6 +168,7 @@ export const Administration = () => {
               formik={formik}
               setIsEditing={setIsEditing}
               paints={paints}
+              handlePaintUpdate={handlePaintUpdate}
             />
           </div>
           <div className="col-lg-7  col-12">
@@ -180,7 +180,6 @@ export const Administration = () => {
           </div>
         </div>
       </div>
-      <UserManagement />
       <Footer />
     </div>
   );

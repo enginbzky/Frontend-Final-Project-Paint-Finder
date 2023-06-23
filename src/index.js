@@ -9,6 +9,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
 import { Administration } from "./pages/Administration";
+import { UserManagement } from "./pages/UserManagement";
 import { PaintFinder } from "./pages/PaintFinder";
 import WelcomePage from "./pages/WelcomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute>
-            <div className="background-image">
+            <div className="no-background-image">
               <Profile />
             </div>
           </ProtectedRoute>
@@ -72,6 +73,16 @@ const router = createBrowserRouter([
           <ProtectedRoute>
             <div className="background-image">
               <WelcomePage />
+            </div>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "userManagement",
+        element: (
+          <ProtectedRoute>
+            <div className="no-background-image">
+              <UserManagement />
             </div>
           </ProtectedRoute>
         ),

@@ -37,7 +37,7 @@ function PaintTable({ paints, getData, handleEdit }) {
   };
 
   return (
-    <table className="text-dark  table  table-hover table-bg table-bordered  ">
+    <table className="mt-5 text-dark  table  table-hover table-bg table-bordered  ">
       <thead>
         <tr>
           <th>#</th>

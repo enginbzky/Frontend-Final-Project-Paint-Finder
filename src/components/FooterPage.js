@@ -1,16 +1,18 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import Sailing from "../assets/sailing-1.png";
+// import Sailing from "../assets/sailing-1.png";
+import FooterImage from "../assets/footer.png";
 
 const Footer = () => {
   return (
     <footer
       style={{
-        height: "100px",
+        height: "80px",
         backgroundColor: "white",
         position: "fixed",
-        bottom: "0",
-        width: "100%",
+        bottom: "40px",
+        width: "60%",
+        marginRight: "50px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -19,86 +21,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col className="d-none d-md-block">
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col className="d-none d-md-block">
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-            />
-          </Col>
-          <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-              className="d-none d-sm-block"
-            />
-          </Col>
-          <Col>
-            <img
-              src={Sailing}
-              alt="sailing"
-              style={{
-                height: 100,
-                width: 90,
-              }}
-              className="d-none d-sm-block"
-            />
+            <img src={FooterImage} alt="sailing" />
           </Col>
         </Row>
       </Container>

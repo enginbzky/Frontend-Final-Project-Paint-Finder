@@ -20,7 +20,7 @@ function NavigationBar() {
           variant="dark"
           aria-controls="basic-navbar-nav"
         />
-        <Navbar.Brand className="text-black pe-5">
+        <Navbar.Brand className="text-black pe-4">
           <img
             src={logo}
             alt="logo"
@@ -52,6 +52,12 @@ function NavigationBar() {
                   <ProtectedLink
                     name="Administration"
                     link="/administration"
+                    user={user}
+                    roles={["admin"]}
+                  />
+                  <ProtectedLink
+                    name="User Management"
+                    link="/userManagement"
                     user={user}
                     roles={["admin"]}
                   />
