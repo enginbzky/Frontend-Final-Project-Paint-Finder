@@ -471,7 +471,7 @@ export const RenderSteps = ({
         <div>
           <Form.Group>
             <Form.Label>
-              <h1 style={{ color: "#0869fb", paddingBottom: "80px" }}>
+              <h1 style={{ color: "#0869fb", paddingBottom: "20px" }}>
                 Voila! Here is your paint
               </h1>
             </Form.Label>

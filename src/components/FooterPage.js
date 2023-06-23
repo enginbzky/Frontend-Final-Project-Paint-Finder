@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// import Sailing from "../assets/sailing-1.png";
 import FooterImage from "../assets/footer.png";
 
 const Footer = () => {

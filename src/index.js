@@ -13,7 +13,6 @@ import { UserManagement } from "./pages/UserManagement";
 import { PaintFinder } from "./pages/PaintFinder";
 import WelcomePage from "./pages/WelcomePage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -84,14 +83,6 @@ const router = createBrowserRouter([
             <div className="no-background-image">
               <UserManagement />
             </div>
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "settings",
-        element: (
-          <ProtectedRoute>
-            <Settings />
           </ProtectedRoute>
         ),
       },

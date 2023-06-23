@@ -2,9 +2,8 @@ import { api } from "./httpService";
 
 const getUser = async (email) => {
   try {
-    //TODO
     const response = await api.get(`/profile/${email}`);
-    return response.data; //user object
+    return response.data;
   } catch (error) {
     console.error(error.message);
     throw error;
@@ -13,7 +12,6 @@ const getUser = async (email) => {
 
 const saveUser = async (user) => {
   try {
-    //TODO
     const response = await api.post(`/users`, user);
     return response.data;
   } catch (error) {

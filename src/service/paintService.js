@@ -1,32 +1,14 @@
-///service file is a file where we make http requests to the server.
-//this way of abstraction is arguably better than writing these functions in your components
-
-// const BASE_URL = "http://localhost:9000/";
-
-//getting all paints
-// export const getPaints = async () => {
-//   try {
-//     const response = await fetch("http://localhost:9000/paints");
-//     const json = await response.json();
-//     if (response.ok) {
-//       return json; /// <=== return the fetched json data
-//     } else {
-//       throw new Error(response.statusText);
-//     }
-//   } catch (error) {
-//     throw error;
-//   }
-// };
+const BASE_URL = "http://localhost:9000";
 
 export const getPaints = async () => {
   try {
-    const response = await fetch("http://localhost:9000/paints");
+    const response = await fetch(`${BASE_URL}/paints`);
     const json = await response.json();
     if (response.ok) {
       const paints = json.map((paint) => {
         return {
           ...paint,
-          image: `http://localhost:9000/paints/${paint.id}/image`,
+          image: `${BASE_URL}/paints/${paint.id}/image`,
         };
       });
       return paints;
@@ -56,7 +38,7 @@ export const createPaint = async (paint) => {
 
   formData.append("paint", JSON.stringify(jsonData));
 
-  console.log(formData.get("Image")); // Veriyi doğru bir şekilde eklediğini doğrula
+  console.log(formData.get("Image"));
   console.log(formData.get("paint"));
 
   const options = {
@@ -65,11 +47,11 @@ export const createPaint = async (paint) => {
   };
 
   try {
-    const response = await fetch("http://localhost:9000/paints", options);
+    const response = await fetch(`${BASE_URL}/paints`, options);
     const json = await response.json();
 
     if (response.ok) {
-      return json; // Gönderilen JSON verisinin yanıtı
+      return json;
     } else {
       throw new Error(response.statusText);
     }
@@ -78,7 +60,6 @@ export const createPaint = async (paint) => {
   }
 };
 
-///update the existing paint
 export const updatePaint = async (id, paint) => {
   const formData = new FormData();
   formData.append("paintImage", paint.image);
@@ -102,10 +83,7 @@ export const updatePaint = async (id, paint) => {
   };
 
   try {
-    const response = await fetch(
-      `http://localhost:9000/paints/degis/${id}`,
-      options
-    );
+    const response = await fetch(`${BASE_URL}/paints/degis/${id}`, options);
     const json = await response.json();
     if (response.ok) {
       return json;
@@ -120,12 +98,12 @@ export const updatePaint = async (id, paint) => {
 ///delete an existing paint
 export const deletePaint = async (id) => {
   try {
-    const response = await fetch(`http://localhost:9000/paints/${id}`, {
+    const response = await fetch(`${BASE_URL}/paints/${id}`, {
       method: "DELETE",
     });
     const json = await response.json();
     if (response.ok) {
-      return json; /// <=== return the fetched json data (if response if ok you will get saying {message:"User Deleted"})
+      return json;
     } else {
       throw new Error(response.statusText);
     }
@@ -133,19 +111,3 @@ export const deletePaint = async (id) => {
     throw error;
   }
 };
-
-// export const checkIfPaintExists = async (paintName) => {
-//   try {
-//     const response = await fetch(
-//       `http://localhost:9000/paints/checkPaintExists/${paintName}`
-//     );
-//     if (!response.ok) {
-//       throw new Error("Paint existence check failed");
-//     }
-//     const data = await response.json();
-//     return data.exists; // Backend'den gelen yanıtı döndürür (true veya false)
-//   } catch (error) {
-//     console.error(error);
-//     throw error;
-//   }
-// };

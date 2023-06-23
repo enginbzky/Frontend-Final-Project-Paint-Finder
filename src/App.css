@@ -107,21 +107,12 @@
 }
 
 .fixed-description {
-  width: 100px; /* Sabit genişlik */
-  height: auto; /* Otomatik yükseklik */
-  white-space: normal; /* Metnin otomatik olarak satırlara bölünmesine izin verir */
-  word-wrap: break-word; /* Uzun kelimelerin otomatik olarak satıra sığmasını sağlar */
-  font-size: 14px; /* Yazı fontu boyutu */
+  width: 100px;
+  height: auto;
+  white-space: normal;
+  word-wrap: break-word;
+  font-size: 14px;
 }
-
-/* .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
-  background-color: #eb6e14;
-  border-color: #eb6e14;
-}
-
-.custom-radio .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 0.2rem rgba(235, 110, 20, 0.25);
-} */
 
 .radio-options {
   display: flex;

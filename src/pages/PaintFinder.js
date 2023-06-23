@@ -140,11 +140,13 @@ export const PaintFinder = () => {
         return null; // veya hata durumuna uygun bir işlem yapabilirsiniz
       }
       return (
-        <div key={index}>
-          <h3>Yacht Name : {paint.brand} </h3>
-          <p>Paint Name: {paint.paintName}</p>
-          <p>Paint Image:</p>
-          <img src={`http://localhost:9000/paints/${paint.id}/image`} />
+        <div key={index} className="mb-2">
+          <h3>{paint.brand} </h3>
+          <p>{paint.paintName}</p>
+          <img
+            src={`http://localhost:9000/paints/${paint.id}/image`}
+            alt="paint"
+          />
         </div>
       );
     });
